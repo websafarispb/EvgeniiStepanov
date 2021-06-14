@@ -7,7 +7,7 @@ import ru.stepev.test.training.at.hw1.dataprovider.SummationDataProvider;
 
 public class CalculatorSummationTest extends CalculatorTest {
 
-    public static final double DELTA = 0.001;
+    protected static final double DELTA = 0.001;
 
     @Test(dataProvider = "Summation Long Data Provider", dataProviderClass = SummationDataProvider.class)
     public void givenLongNumbers_whenCalculatorSummation_thenGiveCorrectLongSum(long a, long b,

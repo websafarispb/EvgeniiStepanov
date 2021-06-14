@@ -7,7 +7,7 @@ import ru.stepev.test.training.at.hw1.dataprovider.DivideDataProvider;
 
 public class CalculatorDivideTest extends CalculatorTest {
 
-    public static final double DELTA = 0.01;
+    protected static final double DELTA = 0.01;
 
     @Test(dataProvider = "Divide Long Data Provider", dataProviderClass = DivideDataProvider.class)
     public void givenLongNumbers_whenCalculatorDivide_thenGiveCorrectLongQuotient(long a, long b,

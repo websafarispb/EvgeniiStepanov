@@ -7,7 +7,7 @@ import ru.stepev.test.training.at.hw1.dataprovider.MultiplyDataProvider;
 
 public class CalculatorMultiplyTest extends CalculatorTest {
 
-    public static final double DELTA = 0.01;
+    protected static final double DELTA = 0.01;
 
     @Test(dataProvider = "Multiply Long Data Provider", dataProviderClass = MultiplyDataProvider.class)
     public void givenLongNumbers_whenCalculatorMultiply_thenGiveCorrectLongMultiply(long a, long b,
