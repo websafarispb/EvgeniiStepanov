@@ -2,9 +2,7 @@ package ru.stepev.test.training.at.hw2.model;
 
 import java.util.Arrays;
 import java.util.List;
-import lombok.Data;
 
-@Data
 public final class Page {
 
     //test data
