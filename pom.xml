@@ -116,5 +116,14 @@
         <suite.file>${project.basedir}/src/test/resources/testngconfigs/multiplyAndDivideTests.xml</suite.file>
       </properties>
     </profile>
+    <profile>
+      <id>SecondHomework</id>
+      <activation>
+        <activeByDefault>false</activeByDefault>
+      </activation>
+      <properties>
+        <suite.file>${project.basedir}/src/test/resources/testngconfigs/secondHomeworkTests.xml</suite.file>
+      </properties>
+    </profile>
   </profiles>
 </project>
