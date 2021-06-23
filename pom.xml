@@ -125,5 +125,14 @@
         <suite.file>${project.basedir}/src/test/resources/testngconfigs/secondHomeworkTests.xml</suite.file>
       </properties>
     </profile>
+    <profile>
+      <id>ThirdHomework</id>
+      <activation>
+        <activeByDefault>false</activeByDefault>
+      </activation>
+      <properties>
+        <suite.file>${project.basedir}/src/test/resources/testngconfigs/thirdHomeworkTests.xml</suite.file>
+      </properties>
+    </profile>
   </profiles>
 </project>
