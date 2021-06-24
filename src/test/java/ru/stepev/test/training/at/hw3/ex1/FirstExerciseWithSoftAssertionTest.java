@@ -52,7 +52,8 @@ public class FirstExerciseWithSoftAssertionTest extends AbstractBaseTest {
         assertEquals(actualFrameWithButton.getTitle(), Page.expectedTitle);
 
         //9. Switch to the iframe and check that there is “Frame Button” in the iframe
-        assertTrue(homePage.getButtonOfFrame().isDisplayed());
+        //  assertTrue(homePage.getButtonOfFrame().isDisplayed());
+        assertTrue(homePage.searchButton.isDisplayed());
 
         //10. Switch to original window back
         homePage.switchToDefaultContent();

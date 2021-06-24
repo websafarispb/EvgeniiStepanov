@@ -3,6 +3,9 @@ package ru.stepev.test.training.at.hw3.model.page;
 import java.util.List;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+import ru.stepev.test.training.at.hw3.element.ExtendedFieldDecorator;
 import ru.stepev.test.training.at.hw3.model.User;
 import ru.stepev.test.training.at.hw3.model.component.Button;
 import ru.stepev.test.training.at.hw3.model.component.PageImages;
@@ -26,6 +29,9 @@ public class HomePage implements BasePage {
     private PageLabel fullUserName;
     private Button buttonOfFrame;
 
+    @FindBy(xpath = "//input[@value='Frame Button']")
+    public ru.stepev.test.training.at.hw3.element.Button searchButton;
+
     public HomePage(WebDriver driver) {
         this.driver = driver;
         userName = new PageTextField("HomePage.UserNameTextField", driver);
@@ -38,6 +44,7 @@ public class HomePage implements BasePage {
         pageImages = new PageImages("HomePage.PageImages", driver);
         pageImagesText = new PageImagesText("HomePage.PageImagesText", driver);
         loginLink = new PageLink("HomePage.LoginLink", driver);
+        PageFactory.initElements(new ExtendedFieldDecorator(driver), this);
     }
 
     @Override
