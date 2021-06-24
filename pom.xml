@@ -17,6 +17,7 @@
     <webdrivermanager.version>4.4.3</webdrivermanager.version>
     <selenium.version>3.141.59</selenium.version>
     <lombok.version>1.18.20</lombok.version>
+    <maven.checkstyle.version>3.1.2</maven.checkstyle.version>
   </properties>
   <dependencies>
     <dependency>
@@ -56,12 +57,27 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-checkstyle-plugin</artifactId>
-        <version>3.1.2</version>
+        <version>${maven.checkstyle.version}</version>
+        <dependencies>
+          <dependency>
+            <groupId>com.puppycrawl.tools</groupId>
+            <artifactId>checkstyle</artifactId>
+            <version>${checkstyle.version}</version>
+          </dependency>
+        </dependencies>
         <configuration>
-          <configLocation>https://raw.githubusercontent.com/DmitryKhodakovsky/epam-training-center-code-checkers-configurations/main/checkstyle/checkstyle.xml</configLocation>
+          <configLocation>
+            <!--  pay attention to use exact url for checkstyle plugin ruleset  -->
+            https://raw.githubusercontent.com/DmitryKhodakovsky/epam-training-center-code-checkers-configurations/main/checkstyle/checkstyle.xml
+          </configLocation>
+          <includeTestSourceDirectory>true</includeTestSourceDirectory>
+          <violationSeverity>warning</violationSeverity>
+          <consoleOutput>true</consoleOutput>
         </configuration>
         <executions>
           <execution>
+            <id>validate</id>
+            <phase>validate</phase>
             <goals>
               <goal>check</goal>
             </goals>
