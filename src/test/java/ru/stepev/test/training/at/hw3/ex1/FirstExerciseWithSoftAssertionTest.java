@@ -25,26 +25,24 @@ public class FirstExerciseWithSoftAssertionTest extends AbstractBaseTest {
 
         assertTrue(homePage.getCurrentUrl().endsWith(Page.endOfCurrentUrlPage));
 
-        System.out.println(homePage.getCurrentUrl());
-
         //4. Assert Username is logged
         actualUserName = homePage.getFullUserName();
 
         softAssertion.assertEquals(actualUserName, Page.expectedUserName);
 
         //5. Assert that there are 4 items on the header section are displayed and they have proper texts
-        actualHeaderMenu = homePage.getHeaderMenu().getMenuItems();
+        actualHeaderMenu = homePage.getHeaderMenu();
         assertEquals(actualHeaderMenu, Page.expectedHeaderMenu);
 
         //6. Assert that there are 4 images on the Index Page and they are displayed
-        actualImagesOfIndexPage = homePage.getImagesOfPage();
+        actualImagesOfIndexPage = homePage.getImages();
 
         actualImagesOfIndexPage.stream().forEach(p -> softAssertion.assertTrue(p.isDisplayed()));
 
         softAssertion.assertAll();
 
         //7. Assert that there are 4 texts on the Index Page under icons and they have proper text
-        actualImagesText = homePage.getTextOfImagesOnIndexPage();
+        actualImagesText = homePage.getImagesText();
         assertEquals(actualImagesText, Page.expectedImagesText);
 
         //8. Assert that there is the iframe with “Frame Button” exist
@@ -52,14 +50,13 @@ public class FirstExerciseWithSoftAssertionTest extends AbstractBaseTest {
         assertEquals(actualFrameWithButton.getTitle(), Page.expectedTitle);
 
         //9. Switch to the iframe and check that there is “Frame Button” in the iframe
-        //  assertTrue(homePage.getButtonOfFrame().isDisplayed());
-        assertTrue(homePage.searchButton.isDisplayed());
+        assertTrue(homePage.getButtonOfFrame().isDisplayed());
 
         //10. Switch to original window back
         homePage.switchToDefaultContent();
 
         //11. Assert that there are 5 items in the Left Section are displayed and they have proper text
-        actualLeftSideMenu = homePage.getLeftSideMenu().getMenuItems();
+        actualLeftSideMenu = homePage.getLeftSideMenu();
 
         assertEquals(actualLeftSideMenu, Page.expectedLeftSideMenu);
     }

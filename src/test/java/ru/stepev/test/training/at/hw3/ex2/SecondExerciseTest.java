@@ -37,7 +37,8 @@ public class SecondExerciseTest extends AbstractBaseTest {
         assertTrue(differentElementsPage.getCurrentUrl().endsWith(Page.endOfDifferentElementUrlPage));
 
         //6. Select checkboxes
-        checkboxSelected = differentElementsPage.getAndClickCheckbox(Page.clickedCheckboxItems);
+        differentElementsPage.clickCheckBox(Page.clickedCheckboxItems);
+
         //7. Select radio
         differentElementsPage.getSelenRadioButton().click();
 

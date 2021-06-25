@@ -1,50 +1,61 @@
 package ru.stepev.test.training.at.hw3.model.page;
 
 import java.util.List;
+import java.util.stream.Collectors;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import ru.stepev.test.training.at.hw3.element.ExtendedFieldDecorator;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import ru.stepev.test.training.at.hw3.model.User;
 import ru.stepev.test.training.at.hw3.model.component.Button;
-import ru.stepev.test.training.at.hw3.model.component.PageImages;
-import ru.stepev.test.training.at.hw3.model.component.PageImagesText;
-import ru.stepev.test.training.at.hw3.model.component.PageLabel;
-import ru.stepev.test.training.at.hw3.model.component.PageLink;
-import ru.stepev.test.training.at.hw3.model.component.PageMenu;
-import ru.stepev.test.training.at.hw3.model.component.PageTextField;
+import ru.stepev.test.training.at.hw3.model.component.Image;
+import ru.stepev.test.training.at.hw3.model.component.ImagesText;
+import ru.stepev.test.training.at.hw3.model.component.Item;
+import ru.stepev.test.training.at.hw3.model.component.Link;
+import ru.stepev.test.training.at.hw3.model.component.MenuItem;
+import ru.stepev.test.training.at.hw3.model.component.TextField;
+import ru.stepev.test.training.at.hw3.model.component.TextLabel;
+import ru.stepev.test.training.at.hw3.utils.wrapperfactory.CustomFieldDecorator;
 
 public class HomePage implements BasePage {
 
     private WebDriver driver;
-    private PageMenu headerMenu;
-    private PageMenu leftSideMenu;
-    private PageImages pageImages;
-    private PageImagesText pageImagesText;
-    private PageLink loginLink;
-    private PageTextField userName;
-    private PageTextField userPassword;
-    private Button loginButton;
-    private PageLabel fullUserName;
-    private Button buttonOfFrame;
+
+    @FindBy(xpath = "//ul[@class='uui-navigation nav navbar-nav m-l8']//following-sibling::a")
+    private List<MenuItem> headerMenu;
+
+    @FindBy(xpath = "//ul[@class='sidebar-menu left']//following-sibling::a")
+    private List<MenuItem> leftSideMenu;
+
+    @FindBy(xpath = "//span[contains(@class,  'icons-benefit icon-')]")
+    private List<Image> images;
+
+    @FindBy(xpath = "//span[contains(@class,  'benefit-txt')]")
+    public List<ImagesText> imagesText;
+
+    @FindBy(xpath = "//a[@href='#']")
+    private Link loginLink;
+
+    @FindBy(id = "name")
+    private TextField userName;
+
+    @FindBy(id = "password")
+    private TextField userPassword;
+
+    @FindBy(id = "login-button")
+    public Button loginButton;
 
     @FindBy(xpath = "//input[@value='Frame Button']")
-    public ru.stepev.test.training.at.hw3.element.Button searchButton;
+    public Button buttonOfFrame;
+
+    @FindBy(id = "user-name")
+    public TextLabel fullUserName;
 
     public HomePage(WebDriver driver) {
         this.driver = driver;
-        userName = new PageTextField("HomePage.UserNameTextField", driver);
-        userPassword = new PageTextField("HomePage.UserPasswordTextField", driver);
-        fullUserName = new PageLabel("HomePage.FullUserName", driver);
-        loginButton = new Button("HomePage.LoginButton", driver);
-        buttonOfFrame = new Button("FramePage.Button", driver);
-        headerMenu = new PageMenu("HomePage.HeaderMenu", driver);
-        leftSideMenu = new PageMenu("HomePage.LeftSideMenu", driver);
-        pageImages = new PageImages("HomePage.PageImages", driver);
-        pageImagesText = new PageImagesText("HomePage.PageImagesText", driver);
-        loginLink = new PageLink("HomePage.LoginLink", driver);
-        PageFactory.initElements(new ExtendedFieldDecorator(driver), this);
+        PageFactory.initElements(new CustomFieldDecorator(driver), this);
     }
 
     @Override
@@ -53,10 +64,10 @@ public class HomePage implements BasePage {
     }
 
     public void login(User user) {
-        loginLink.getLink().click();
-        userName.getPageTextField().sendKeys(user.getName());
-        userPassword.getPageTextField().sendKeys(user.getPassword());
-        loginButton.getButton().click();
+        loginLink.click();
+        userName.sendKeys(user.getName());
+        userPassword.sendKeys(user.getPassword());
+        loginButton.click();
     }
 
     public WebDriver switchToFrame(String frameName) {
@@ -75,27 +86,33 @@ public class HomePage implements BasePage {
         return driver.getCurrentUrl();
     }
 
-    public PageMenu getHeaderMenu() {
-        return headerMenu;
+    public List<Item> getHeaderMenu() {
+        return headerMenu.stream()
+                         .map(menuItem -> new Item(menuItem))
+                         .collect(Collectors.toList());
     }
 
     public String getFullUserName() {
         return fullUserName.getText();
     }
 
-    public List<String> getTextOfImagesOnIndexPage() {
-        return pageImagesText.getImagesText();
+    public List<Item> getLeftSideMenu() {
+        return leftSideMenu.stream()
+                           .map(menuItem -> new Item(menuItem))
+                           .collect(Collectors.toList());
     }
 
-    public PageMenu getLeftSideMenu() {
-        return leftSideMenu;
-    }
-
-    public List<WebElement> getImagesOfPage() {
-        return pageImages.getImages();
+    public List<Image> getImages() {
+        return images;
     }
 
     public Button getButtonOfFrame() {
         return buttonOfFrame;
+    }
+
+    public List<String> getImagesText() {
+        return imagesText.stream()
+                         .map(ImagesText::getText)
+                         .collect(Collectors.toList());
     }
 }

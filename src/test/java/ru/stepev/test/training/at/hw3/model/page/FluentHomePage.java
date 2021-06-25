@@ -1,34 +1,44 @@
 package ru.stepev.test.training.at.hw3.model.page;
 
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 import ru.stepev.test.training.at.hw3.model.User;
 import ru.stepev.test.training.at.hw3.model.component.Button;
-import ru.stepev.test.training.at.hw3.model.component.HeaderMenuItem;
-import ru.stepev.test.training.at.hw3.model.component.PageLabel;
-import ru.stepev.test.training.at.hw3.model.component.PageLink;
-import ru.stepev.test.training.at.hw3.model.component.PageTextField;
+import ru.stepev.test.training.at.hw3.utils.wrapperfactory.CustomFieldDecorator;
+import ru.stepev.test.training.at.hw3.model.component.Link;
+import ru.stepev.test.training.at.hw3.model.component.MenuItem;
+import ru.stepev.test.training.at.hw3.model.component.TextField;
+import ru.stepev.test.training.at.hw3.model.component.TextLabel;
 
 public class FluentHomePage implements BasePage {
 
     private WebDriver driver;
-    private PageLink loginLink;
-    private HeaderMenuItem headerMenuItemService;
-    private PageLink itemDifferentElementsPage;
-    private PageTextField userName;
-    private PageTextField userPassword;
+
+    @FindBy(xpath = "//a[@href='#']")
+    private Link loginLink;
+
+    @FindBy(xpath = "//header//a[@class='dropdown-toggle']")
+    private MenuItem headerMenuService;
+
+    @FindBy(xpath = "//header//a[@href='different-elements.html']")
+    private Link linkDifferentElementsPage;
+
+    @FindBy(id = "name")
+    private TextField userName;
+
+    @FindBy(id = "password")
+    private TextField userPassword;
+
+    @FindBy(id = "login-button")
     private Button loginButton;
-    private PageLabel fullUserName;
+
+    @FindBy(id = "user-name")
+    public TextLabel fullUserName;
 
     public FluentHomePage(WebDriver driver) {
         this.driver = driver;
-        userName = new PageTextField("HomePage.UserNameTextField", driver);
-        userPassword = new PageTextField("HomePage.UserPasswordTextField", driver);
-        fullUserName = new PageLabel("HomePage.FullUserName", driver);
-        loginButton = new Button("HomePage.LoginButton", driver);
-        loginLink = new PageLink("HomePage.LoginLink", driver);
-        headerMenuItemService = new HeaderMenuItem("HomePage.HeaderMenuServiceItem", driver);
-        itemDifferentElementsPage = new PageLink("HomePage.ItemDifferentElementsPage", driver);
+        PageFactory.initElements(new CustomFieldDecorator(driver), this);
     }
 
     @Override
@@ -37,16 +47,16 @@ public class FluentHomePage implements BasePage {
     }
 
     public FluentHomePage login(User user) {
-        loginLink.getLink().click();
-        userName.getPageTextField().sendKeys(user.getName());
-        userPassword.getPageTextField().sendKeys(user.getPassword());
-        loginButton.getButton().click();
+        loginLink.click();
+        userName.sendKeys(user.getName());
+        userPassword.sendKeys(user.getPassword());
+        loginButton.click();
         return this;
     }
 
     public DifferentElementsPage clickDifferentElementsPage() {
-        getHeaderMenuService().click();
-        getItemDifferentElementsPage().click();
+        headerMenuService.click();
+        linkDifferentElementsPage.click();
         return new DifferentElementsPage(driver);
     }
 
@@ -60,13 +70,5 @@ public class FluentHomePage implements BasePage {
 
     public String getFullUserName() {
         return fullUserName.getText();
-    }
-
-    public WebElement getHeaderMenuService() {
-        return headerMenuItemService.getHeaderMenuItem();
-    }
-
-    public WebElement getItemDifferentElementsPage() {
-        return itemDifferentElementsPage.getLink();
     }
 }

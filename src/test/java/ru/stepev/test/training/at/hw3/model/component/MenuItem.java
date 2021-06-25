@@ -1,14 +1,21 @@
 package ru.stepev.test.training.at.hw3.model.component;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
+import org.openqa.selenium.WebElement;
 
 @Data
-@AllArgsConstructor
-@Builder
-public class MenuItem {
+public class MenuItem extends Element {
 
     private String name;
     private boolean visible;
+
+    public MenuItem(WebElement webElement) {
+        super(webElement);
+    }
+
+    public MenuItem init(String name, boolean visible) {
+        this.name = name;
+        this.visible = visible;
+        return this;
+    }
 }
