@@ -1,15 +1,15 @@
-package ru.stepev.test.training.at.hw4.model.page;
+package ru.stepev.test.training.at.hw3.model.page;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import ru.stepev.test.training.at.hw4.model.User;
-import ru.stepev.test.training.at.hw4.model.component.Button;
-import ru.stepev.test.training.at.hw4.model.component.Link;
-import ru.stepev.test.training.at.hw4.model.component.MenuItem;
-import ru.stepev.test.training.at.hw4.model.component.TextField;
-import ru.stepev.test.training.at.hw4.model.component.TextLabel;
-import ru.stepev.test.training.at.hw4.utils.wrapperfactory.CustomFieldDecorator;
+import ru.stepev.test.training.at.hw3.model.User;
+import ru.stepev.test.training.at.hw3.model.component.Button;
+import ru.stepev.test.training.at.hw3.model.component.Link;
+import ru.stepev.test.training.at.hw3.model.component.MenuItem;
+import ru.stepev.test.training.at.hw3.model.component.TextField;
+import ru.stepev.test.training.at.hw3.model.component.TextLabel;
+import ru.stepev.test.training.at.hw3.utils.wrapperfactory.CustomFieldDecorator;
 
 public class FluentHomePage implements BasePage {
 
@@ -42,8 +42,8 @@ public class FluentHomePage implements BasePage {
     }
 
     @Override
-    public void open(String url) {
-        driver.navigate().to(url);
+    public void open() {
+        driver.navigate().to(Page.pageURL);
     }
 
     public FluentHomePage login(User user) {

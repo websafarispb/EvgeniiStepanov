@@ -47,12 +47,12 @@
       <version>${testng.version}</version>
       <scope>test</scope>
     </dependency>
-      <dependency>
-        <groupId>io.qameta.allure</groupId>
-        <artifactId>allure-testng</artifactId>
-        <version>${allure.version}</version>
-        <scope>test</scope>
-      </dependency>
+    <dependency>
+      <groupId>io.qameta.allure</groupId>
+      <artifactId>allure-testng</artifactId>
+      <version>${allure.version}</version>
+      <scope>test</scope>
+    </dependency>
     <dependency>
       <groupId>com.sample</groupId>
       <artifactId>sample</artifactId>
@@ -129,15 +129,15 @@
     </plugins>
   </build>
   <profiles>
-  <profile>
-    <id>allOperationsOfCalculator</id>
-    <activation>
-      <activeByDefault>false</activeByDefault>
-    </activation>
-    <properties>
-      <suite.file>${project.basedir}/src/test/resources/testngconfigs/allOperationsOfCalculatorTests.xml</suite.file>
-    </properties>
-  </profile>
+    <profile>
+      <id>allOperationsOfCalculator</id>
+      <activation>
+        <activeByDefault>false</activeByDefault>
+      </activation>
+      <properties>
+        <suite.file>${project.basedir}/src/test/resources/testngconfigs/allOperationsOfCalculatorTests.xml</suite.file>
+      </properties>
+    </profile>
     <profile>
       <id>SumAndSub</id>
       <activation>
@@ -163,6 +163,15 @@
       </activation>
       <properties>
         <suite.file>${project.basedir}/src/test/resources/testngconfigs/secondHomeworkTests.xml</suite.file>
+      </properties>
+    </profile>
+    <profile>
+      <id>ThirdHomework</id>
+      <activation>
+        <activeByDefault>false</activeByDefault>
+      </activation>
+      <properties>
+        <suite.file>${project.basedir}/src/test/resources/testngconfigs/thirdHomeworkTests.xml</suite.file>
       </properties>
     </profile>
     <profile>

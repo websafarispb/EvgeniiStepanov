@@ -1,10 +1,10 @@
-package ru.stepev.test.training.at.hw4.model.page;
+package ru.stepev.test.training.at.hw3.model.page;
 
 import java.util.Arrays;
 import java.util.List;
 import lombok.Data;
-import ru.stepev.test.training.at.hw4.model.component.CheckboxItem;
-import ru.stepev.test.training.at.hw4.model.component.Item;
+import ru.stepev.test.training.at.hw3.model.component.CheckboxItem;
+import ru.stepev.test.training.at.hw3.model.component.Item;
 
 @Data
 public final class Page {

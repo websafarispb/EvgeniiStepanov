@@ -3,6 +3,7 @@
   <test name="forthHomeworkAllTests">
     <classes>
       <class name="ru.stepev.test.training.at.hw4.ex1.FirstExerciseWithSoftAssertionTest"/>
+      <class name="ru.stepev.test.training.at.hw4.ex1.FailedFirstExerciseWithSoftAssertionTest"/>
       <class name="ru.stepev.test.training.at.hw4.ex2.SecondExerciseTest"/>
     </classes>
   </test>

@@ -1,20 +1,23 @@
-package ru.stepev.test.training.at.hw4.model.page;
+package ru.stepev.test.training.at.hw3.model.page;
 
 import java.util.List;
 import java.util.stream.Collectors;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import ru.stepev.test.training.at.hw4.model.User;
-import ru.stepev.test.training.at.hw4.model.component.Button;
-import ru.stepev.test.training.at.hw4.model.component.Image;
-import ru.stepev.test.training.at.hw4.model.component.ImagesText;
-import ru.stepev.test.training.at.hw4.model.component.Item;
-import ru.stepev.test.training.at.hw4.model.component.Link;
-import ru.stepev.test.training.at.hw4.model.component.MenuItem;
-import ru.stepev.test.training.at.hw4.model.component.TextField;
-import ru.stepev.test.training.at.hw4.model.component.TextLabel;
-import ru.stepev.test.training.at.hw4.utils.wrapperfactory.CustomFieldDecorator;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import ru.stepev.test.training.at.hw3.model.User;
+import ru.stepev.test.training.at.hw3.model.component.Button;
+import ru.stepev.test.training.at.hw3.model.component.Image;
+import ru.stepev.test.training.at.hw3.model.component.ImagesText;
+import ru.stepev.test.training.at.hw3.model.component.Item;
+import ru.stepev.test.training.at.hw3.model.component.Link;
+import ru.stepev.test.training.at.hw3.model.component.MenuItem;
+import ru.stepev.test.training.at.hw3.model.component.TextField;
+import ru.stepev.test.training.at.hw3.model.component.TextLabel;
+import ru.stepev.test.training.at.hw3.utils.wrapperfactory.CustomFieldDecorator;
 
 public class HomePage implements BasePage {
 
@@ -56,8 +59,8 @@ public class HomePage implements BasePage {
     }
 
     @Override
-    public void open(String url) {
-        driver.navigate().to(url);
+    public void open() {
+        driver.navigate().to(Page.pageURL);
     }
 
     public void login(User user) {

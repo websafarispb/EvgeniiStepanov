@@ -1,8 +1,5 @@
 package ru.stepev.test.training.at.hw4.ex1;
 
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertTrue;
-
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import org.testng.annotations.Listeners;
@@ -15,12 +12,12 @@ import ru.stepev.test.training.at.hw4.model.page.Page;
 
 @Listeners({AllureListener.class})
 @Feature("Exercise one")
-public class FirstExerciseWithSoftAssertionTest extends AbstractBaseTest {
+public class FailedFirstExerciseWithSoftAssertionTest extends AbstractBaseTest {
 
     @Test(dataProvider = "Page Data Provider",
           dataProviderClass = PageDataProvider.class,
           description = "This is test with frame")
-    @Story("Exercise one good test")
+    @Story("Exercise one failed  test")
     public void exerciseFirst(User user) {
 
         //1. Open test site by URL
@@ -30,10 +27,11 @@ public class FirstExerciseWithSoftAssertionTest extends AbstractBaseTest {
         assertStepVoidPage.assertPageTitle(Page.expectedTitle);
 
         // 3. Perform login
-        actionStepVoidPage.login(user);
+        actionStepVoidPage.login(new User("", ""));
 
         //4. Assert Username is logged
         assertStepVoidPage.assertEndOfPage(Page.endOfCurrentUrlPage);
+
         assertStepVoidPage.checkSuccessOfLoginOperation(Page.expectedUserName);
 
         //5. Assert that there are 4 items on the header section are displayed and they have proper texts

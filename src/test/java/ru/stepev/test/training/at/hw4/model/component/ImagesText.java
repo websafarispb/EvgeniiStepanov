@@ -2,9 +2,9 @@ package ru.stepev.test.training.at.hw4.model.component;
 
 import org.openqa.selenium.WebElement;
 
-public class DropItem extends Element {
+public class ImagesText extends Element {
 
-    public DropItem(WebElement webElement) {
+    public ImagesText(WebElement webElement) {
         super(webElement);
     }
 }
