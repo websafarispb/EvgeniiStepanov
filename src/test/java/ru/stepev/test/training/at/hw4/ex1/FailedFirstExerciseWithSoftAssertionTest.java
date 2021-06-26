@@ -1,6 +1,7 @@
 package ru.stepev.test.training.at.hw4.ex1;
 
 import io.qameta.allure.Feature;
+import io.qameta.allure.Flaky;
 import io.qameta.allure.Story;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
@@ -18,6 +19,7 @@ public class FailedFirstExerciseWithSoftAssertionTest extends AbstractBaseTest {
           dataProviderClass = PageDataProvider.class,
           description = "This is test with frame")
     @Story("Exercise one failed  test")
+    @Flaky
     public void exerciseFirst(User user) {
 
         //1. Open test site by URL
