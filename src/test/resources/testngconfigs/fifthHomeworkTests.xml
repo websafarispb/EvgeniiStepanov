@@ -1,0 +1,8 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+<suite name="fifthHomeworkTests">
+  <test name="fifthHomeworkAllTests">
+    <packages>
+      <package name="ru.stepev.test.training.at.hw5"/>
+    </packages>
+  </test>
+</suite>

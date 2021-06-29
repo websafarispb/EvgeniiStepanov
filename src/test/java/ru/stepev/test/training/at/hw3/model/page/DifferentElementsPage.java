@@ -5,12 +5,12 @@ import java.util.stream.Collectors;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import ru.stepev.test.training.at.hw3.model.component.CheckboxItem;
 import ru.stepev.test.training.at.hw3.model.component.Button;
 import ru.stepev.test.training.at.hw3.model.component.CheckBox;
-import ru.stepev.test.training.at.hw3.utils.wrapperfactory.CustomFieldDecorator;
+import ru.stepev.test.training.at.hw3.model.component.CheckboxItem;
 import ru.stepev.test.training.at.hw3.model.component.DropItem;
 import ru.stepev.test.training.at.hw3.model.component.Log;
+import ru.stepev.test.training.at.hw3.utils.wrapperfactory.CustomFieldDecorator;
 
 public class DifferentElementsPage implements BasePage {
 
