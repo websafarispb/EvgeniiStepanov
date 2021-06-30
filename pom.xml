@@ -17,6 +17,10 @@
     <webdrivermanager.version>4.4.3</webdrivermanager.version>
     <selenium.version>3.141.59</selenium.version>
     <lombok.version>1.18.20</lombok.version>
+    <maven.checkstyle.version>3.1.2</maven.checkstyle.version>
+    <aspectj.version>1.8.10</aspectj.version>
+    <allure.version>2.14.0</allure.version>
+    <allure-maven.version>2.10.0</allure-maven.version>
   </properties>
   <dependencies>
     <dependency>
@@ -44,6 +48,12 @@
       <scope>test</scope>
     </dependency>
     <dependency>
+      <groupId>io.qameta.allure</groupId>
+      <artifactId>allure-testng</artifactId>
+      <version>${allure.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
       <groupId>com.sample</groupId>
       <artifactId>sample</artifactId>
       <version>1.0</version>
@@ -56,12 +66,27 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-checkstyle-plugin</artifactId>
-        <version>3.1.2</version>
+        <version>${maven.checkstyle.version}</version>
+        <dependencies>
+          <dependency>
+            <groupId>com.puppycrawl.tools</groupId>
+            <artifactId>checkstyle</artifactId>
+            <version>${checkstyle.version}</version>
+          </dependency>
+        </dependencies>
         <configuration>
-          <configLocation>https://raw.githubusercontent.com/DmitryKhodakovsky/epam-training-center-code-checkers-configurations/main/checkstyle/checkstyle.xml</configLocation>
+          <configLocation>
+            <!--  pay attention to use exact url for checkstyle plugin ruleset  -->
+            https://raw.githubusercontent.com/DmitryKhodakovsky/epam-training-center-code-checkers-configurations/main/checkstyle/checkstyle.xml
+          </configLocation>
+          <includeTestSourceDirectory>true</includeTestSourceDirectory>
+          <violationSeverity>warning</violationSeverity>
+          <consoleOutput>true</consoleOutput>
         </configuration>
         <executions>
           <execution>
+            <id>validate</id>
+            <phase>validate</phase>
             <goals>
               <goal>check</goal>
             </goals>
@@ -84,20 +109,35 @@
         <version>3.0.0-M1</version>
         <configuration>
           <suiteXmlFiles>${suite.file}</suiteXmlFiles>
+          <argLine>
+            -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
+          </argLine>
         </configuration>
+        <dependencies>
+          <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+            <version>${aspectj.version}</version>
+          </dependency>
+        </dependencies>
+      </plugin>
+      <plugin>
+        <groupId>io.qameta.allure</groupId>
+        <artifactId>allure-maven</artifactId>
+        <version>${allure-maven.version}</version>
       </plugin>
     </plugins>
   </build>
   <profiles>
-  <profile>
-    <id>allOperationsOfCalculator</id>
-    <activation>
-      <activeByDefault>false</activeByDefault>
-    </activation>
-    <properties>
-      <suite.file>${project.basedir}/src/test/resources/testngconfigs/allOperationsOfCalculatorTests.xml</suite.file>
-    </properties>
-  </profile>
+    <profile>
+      <id>allOperationsOfCalculator</id>
+      <activation>
+        <activeByDefault>false</activeByDefault>
+      </activation>
+      <properties>
+        <suite.file>${project.basedir}/src/test/resources/testngconfigs/allOperationsOfCalculatorTests.xml</suite.file>
+      </properties>
+    </profile>
     <profile>
       <id>SumAndSub</id>
       <activation>
@@ -132,6 +172,15 @@
       </activation>
       <properties>
         <suite.file>${project.basedir}/src/test/resources/testngconfigs/thirdHomeworkTests.xml</suite.file>
+      </properties>
+    </profile>
+    <profile>
+      <id>FourthHomework</id>
+      <activation>
+        <activeByDefault>false</activeByDefault>
+      </activation>
+      <properties>
+        <suite.file>${project.basedir}/src/test/resources/testngconfigs/fourthHomeworkTests.xml</suite.file>
       </properties>
     </profile>
   </profiles>
