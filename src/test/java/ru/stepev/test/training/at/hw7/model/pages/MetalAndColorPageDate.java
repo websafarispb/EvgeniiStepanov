@@ -1,5 +1,8 @@
 package ru.stepev.test.training.at.hw7.model.pages;
 
+import static ru.stepev.test.training.at.hw7.model.pages.MetalAndColor.log;
+
+import com.epam.jdi.light.ui.html.elements.common.Text;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;

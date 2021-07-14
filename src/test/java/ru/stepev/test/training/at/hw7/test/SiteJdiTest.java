@@ -35,36 +35,12 @@ public class SiteJdiTest implements TestsInit {
     public void givenSiteJdiWithMetalAndColorPage_whenFillAllFieldsOnMetalAndColorPage_thenLogContainsAllDate(
         User user, MetalAndColorPageDate expectedMetalAndColorPageDate) {
         homePage.open();
-        homePage.checkOpened();
-        userIcon.click();
-        loginForm.fill(user);
-        loginForm.login();
-        menuMetalsColors.click();
-        metalAndColorPage.checkOpened();
-        String add = expectedMetalAndColorPageDate.getSummary().get(0).toString();
-        String even = expectedMetalAndColorPageDate.getSummary().get(1).toString();
-        oddButtons.select(add);
-        evenButtons.select(even);
-        expectedMetalAndColorPageDate.getElements().stream().forEach(e -> elements.get(e).click());
-        colors.select(expectedMetalAndColorPageDate.getColor());
-        metals.select(expectedMetalAndColorPageDate.getMetals());
-        vegetablesButton.click();
-        List<UIElement> myList = vegetables.list().stream()
-                                           .filter(v -> v.isSelected()).collect(Collectors.toList());
+        homePage.logIn(user);
+        homePage.openMetalsColorsPage();
 
-        List<String> selectedLabels = myList.stream()
-                                            .map(UIElement::label)
-                                            .map(Label::getText)
-                                            .collect(Collectors.toList());
-        selectedLabels.forEach(l -> vegetablesLabels.get(l).click());
-        expectedMetalAndColorPageDate.getVegetables().stream().forEach(e -> vegetablesLabels.get(e).click());
-
-        submit.click();
-
-        List<String> actualLog = log.stream().map(Text::getValue).collect(Collectors.toList());
-
-        userIcon.click();
-        logOut.click();
+        metalAndColorPage.setFieldsAndSubmit(expectedMetalAndColorPageDate);
+        List<String> actualLog = metalAndColorPage.getLog();
+        metalAndColorPage.logOut();
 
         MetalAndColorPageDate actualMetalAndColorPageDate = new MetalAndColorPageDate(actualLog);
         expectedMetalAndColorPageDate.makeSummary();

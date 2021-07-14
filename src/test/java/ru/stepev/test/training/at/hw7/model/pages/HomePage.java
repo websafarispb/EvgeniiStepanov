@@ -1,5 +1,7 @@
 package ru.stepev.test.training.at.hw7.model.pages;
 
+import static ru.stepev.test.training.at.hw7.model.SiteJdi.metalAndColorPage;
+
 import com.epam.jdi.light.elements.common.UIElement;
 import com.epam.jdi.light.elements.composite.Form;
 import com.epam.jdi.light.elements.composite.WebPage;
@@ -18,4 +20,16 @@ public class HomePage extends WebPage {
     public static Link menuMetalsColors;
     @UI("//form[@class='form-horizontal login']")
     public static Form<User> loginForm;
+
+    public void logIn(User user) {
+        userIcon.click();
+        loginForm.fill(user);
+        loginForm.login();
+        this.checkOpened();
+    }
+
+    public void openMetalsColorsPage() {
+        menuMetalsColors.click();
+        metalAndColorPage.checkOpened();
+    }
 }
