@@ -1,0 +1,285 @@
+{
+	"info": {
+		"_postman_id": "e2ab3069-762a-44bd-b1a1-6ee4cb4b20aa",
+		"name": "Trello_Stepanov_Evgenii",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create_card",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response time is less than 200ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response does't have error\", function () {\r",
+							"    pm.response.to.not.be.error;\r",
+							"    pm.response.to.have.jsonBody(\"id\");\r",
+							"    pm.response.to.not.have.jsonBody(\"error\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Successful POST request\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([200, 201, 202]);\r",
+							"});\r",
+							"\r",
+							"var card = pm.response.json();\r",
+							"console.log(\"CARD ID = \" + card.id);\r",
+							"pm.collectionVariables.set(\"cardId\", card.id);"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.variables.set(\"randomeCardName\", \"Create randome name- \" + Math.random().toString(36).substring(7));\r",
+							"pm.collectionVariables.set(\"cardId\", \"\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": \"1\",\r\n    \"checkItemStates\": [],\r\n    \"closed\": false,\r\n    \"dateLastActivity\": \"\",\r\n    \"desc\": \"\",\r\n    \"descData\": null,\r\n    \"dueReminder\": null,\r\n    \"idBoard\": \"60ef45290539a902b11ee0bb\",\r\n    \"idList\": \"60ef45290539a902b11ee0bc\",\r\n    \"idMembersVoted\": [],\r\n    \"idShort\": 2,\r\n    \"idAttachmentCover\": null,\r\n    \"idLabels\": [],\r\n    \"manualCoverAttachment\": false,\r\n    \"name\": \"{{randomeCardName}}\",\r\n    \"pos\": 131071,\r\n    \"shortLink\": \"\",\r\n    \"isTemplate\": false,\r\n    \"cardRole\": null,\r\n    \"dueComplete\": false,\r\n    \"due\": null,\r\n    \"email\": null,\r\n    \"labels\": [],\r\n    \"shortUrl\": \"\",\r\n    \"start\": null,\r\n    \"url\": \"\",\r\n    \"idMembers\": [],\r\n    \"badges\": {\r\n        \"attachmentsByType\": {\r\n            \"trello\": {\r\n                \"board\": 0,\r\n                \"card\": 0\r\n            }\r\n        },\r\n        \"location\": false,\r\n        \"votes\": 0,\r\n        \"viewingMemberVoted\": false,\r\n        \"subscribed\": false,\r\n        \"fogbugz\": \"\",\r\n        \"checkItems\": 0,\r\n        \"checkItemsChecked\": 0,\r\n        \"checkItemsEarliestDue\": null,\r\n        \"comments\": 0,\r\n        \"attachments\": 0,\r\n        \"description\": false,\r\n        \"due\": null,\r\n        \"dueComplete\": false,\r\n        \"start\": null\r\n    },\r\n    \"subscribed\": false,\r\n    \"idChecklists\": [],\r\n    \"cover\": {\r\n        \"idAttachment\": null,\r\n        \"color\": null,\r\n        \"idUploadedBackground\": null,\r\n        \"size\": \"normal\",\r\n        \"brightness\": \"dark\",\r\n        \"idPlugin\": null\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/1/cards?key={{key}}&token={{token}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"1",
+						"cards"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "{{key}}"
+						},
+						{
+							"key": "token",
+							"value": "{{token}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get_created_card",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response time is less than 200ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response does't have error\", function () {\r",
+							"    pm.response.to.not.be.error;\r",
+							"    pm.response.to.have.jsonBody(\"id\");\r",
+							"    pm.response.to.have.jsonBody(\"name\");\r",
+							"    pm.response.to.not.have.jsonBody(\"error\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check field closed\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.closed).to.eql(false);\r",
+							"});\r",
+							"\r",
+							"var card = pm.response.json();\r",
+							"console.log(\"CARD  = \" + card);\r",
+							"pm.collectionVariables.set(\"card\", card);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/1/cards/{{cardId}}?key={{key}}&token={{token}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"1",
+						"cards",
+						"{{cardId}}"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "{{key}}"
+						},
+						{
+							"key": "token",
+							"value": "{{token}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update_name_card",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.variables.set(\"randomeCardName\", \"Update randome name- \" + Math.random().toString(36).substring(7));"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Successful PUT request\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([200, 201, 202]);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response time is less than 200ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status code name has string\", function () {\r",
+							"    pm.response.to.not.be.error;\r",
+							"    pm.response.to.have.jsonBody(\"id\");\r",
+							"    pm.response.to.not.have.jsonBody(\"Update randome name\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": \"{{cardId}}\",\r\n    \"checkItemStates\": [],\r\n    \"closed\": false,\r\n    \"dateLastActivity\": \"2021-07-15T13:34:07.174Z\",\r\n    \"desc\": \"\",\r\n    \"descData\": {\r\n        \"emoji\": {}\r\n    },\r\n    \"dueReminder\": null,\r\n    \"idBoard\": \"60ef45290539a902b11ee0bb\",\r\n    \"idList\": \"60ef45290539a902b11ee0bc\",\r\n    \"idMembersVoted\": [],\r\n    \"idShort\": 12,\r\n    \"idAttachmentCover\": null,\r\n    \"idLabels\": [],\r\n    \"manualCoverAttachment\": false,\r\n    \"name\": \"{{randomeCardName}}\",\r\n    \"pos\": 131327,\r\n    \"shortLink\": \"gyBeKXBo\",\r\n    \"isTemplate\": false,\r\n    \"cardRole\": null,\r\n    \"dueComplete\": false,\r\n    \"due\": null,\r\n    \"email\": null,\r\n    \"labels\": [],\r\n    \"shortUrl\": \"https://trello.com/c/gyBeKXBo\",\r\n    \"start\": null,\r\n    \"url\": \"https://trello.com/c/gyBeKXBo/12-randome-name-52ilve\",\r\n    \"cover\": {\r\n        \"idAttachment\": null,\r\n        \"color\": null,\r\n        \"idUploadedBackground\": null,\r\n        \"size\": \"normal\",\r\n        \"brightness\": \"dark\",\r\n        \"idPlugin\": null\r\n    },\r\n    \"idMembers\": [],\r\n    \"badges\": {\r\n        \"attachmentsByType\": {\r\n            \"trello\": {\r\n                \"board\": 0,\r\n                \"card\": 0\r\n            }\r\n        },\r\n        \"location\": false,\r\n        \"votes\": 0,\r\n        \"viewingMemberVoted\": false,\r\n        \"subscribed\": false,\r\n        \"fogbugz\": \"\",\r\n        \"checkItems\": 0,\r\n        \"checkItemsChecked\": 0,\r\n        \"checkItemsEarliestDue\": null,\r\n        \"comments\": 0,\r\n        \"attachments\": 0,\r\n        \"description\": false,\r\n        \"due\": null,\r\n        \"dueComplete\": false,\r\n        \"start\": null\r\n    },\r\n    \"subscribed\": false,\r\n    \"idChecklists\": []\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/1/cards/{{cardId}}?key={{key}}&token={{token}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"1",
+						"cards",
+						"{{cardId}}"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "{{key}}"
+						},
+						{
+							"key": "token",
+							"value": "{{token}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete_card",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response time is less than 200ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Successful DELETE request\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([200, 201, 202]);\r",
+							"});\r",
+							"\r",
+							"pm.collectionVariables.set(\"cardId\", \"\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/1/cards/{{cardId}}?key={{key}}&token={{token}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"1",
+						"cards",
+						"{{cardId}}"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "{{key}}"
+						},
+						{
+							"key": "token",
+							"value": "{{token}}"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "cardId",
+			"value": ""
+		},
+		{
+			"key": "card",
+			"value": ""
+		}
+	]
+}
