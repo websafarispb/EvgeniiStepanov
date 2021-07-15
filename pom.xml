@@ -203,5 +203,14 @@
         <suite.file>${project.basedir}/src/test/resources/testngconfigs/fifthHomeworkTests.xml</suite.file>
       </properties>
     </profile>
+    <profile>
+      <id>SixHomework</id>
+      <activation>
+        <activeByDefault>false</activeByDefault>
+      </activation>
+      <properties>
+        <suite.file>${project.basedir}/src/test/resources/testngconfigs/sixHomeworkTests.xml</suite.file>
+      </properties>
+    </profile>
   </profiles>
 </project>

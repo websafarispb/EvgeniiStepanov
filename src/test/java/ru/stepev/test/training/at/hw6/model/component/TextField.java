@@ -1,4 +1,4 @@
-package ru.stepev.test.training.at.hw3.model.component;
+package ru.stepev.test.training.at.hw6.model.component;
 
 import org.openqa.selenium.WebElement;
 
