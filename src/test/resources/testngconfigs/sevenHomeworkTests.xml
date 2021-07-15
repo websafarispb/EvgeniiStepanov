@@ -1,0 +1,8 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+<suite name="sevenHomeworkTests">
+  <test name="sevenHomeworkAllTests">
+    <classes>
+      <class name="ru.stepev.test.training.at.hw7.test.SiteJdiTest"/>
+    </classes>
+  </test>
+</suite>
