@@ -1,0 +1,9 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+<suite name="nineHomeworkTests">
+  <test name="nineHomeworkAllTests">
+    <classes>
+      <class name="ru.stepev.test.training.at.hw9.test.BoardServiceTest"/>
+      <class name="ru.stepev.test.training.at.hw9.test.CardServiceTest"/>
+    </classes>
+  </test>
+</suite>
