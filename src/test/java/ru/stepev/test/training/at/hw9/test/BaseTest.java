@@ -1,12 +1,13 @@
 package ru.stepev.test.training.at.hw9.test;
 
-import static org.hamcrest.Matchers.containsString;
-import static ru.stepev.core.BoardService.createBoard;
-import static ru.stepev.core.BoardService.delete;
-import static ru.stepev.core.CardService.createCard;
-import static ru.stepev.core.ListService.createList;
-import static ru.stepev.core.TrelloService.badResponseSpecification;
-import static ru.stepev.core.TrelloService.requestBuilder;
+import static ru.stepev.core.BoardRequestService.createBoard;
+import static ru.stepev.core.BoardRequestService.delete;
+import static ru.stepev.core.BoardRequestService.getBoard;
+import static ru.stepev.core.BoardRequestService.requestBuilder;
+import static ru.stepev.core.CardRequestService.createCard;
+import static ru.stepev.core.CardRequestService.getCard;
+import static ru.stepev.core.ListRequestService.createList;
+import static ru.stepev.core.ListRequestService.getList;
 import static ru.stepev.test.training.at.hw9.utils.PropertyReader.pageProperty;
 
 import beans.Board;
@@ -16,6 +17,8 @@ import io.restassured.http.Method;
 import java.util.Objects;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
+import ru.stepev.core.CardRequestService;
+import ru.stepev.core.ListRequestService;
 
 public class BaseTest {
 
@@ -29,34 +32,14 @@ public class BaseTest {
     @BeforeClass
     public void setUp() {
         System.out.println("<<<<<<<===Before class===>>>>>>");
-        board = createBoard(requestBuilder()
-            .setMethod(Method.POST)
-            .buildBoardRequest()
-            .sendCreateRequest(board));
-
-        boardForDelete = createBoard(requestBuilder()
-            .setMethod(Method.POST)
-            .buildBoardRequest()
-            .sendCreateRequest(boardForDelete));
-
+        board = createBoard(board);
+        boardForDelete = createBoard(boardForDelete);
         list.setIdBoard(board.getId());
-
-        list = createList(requestBuilder()
-            .setMethod(Method.POST)
-            .buildListRequest()
-            .sendCreateRequest(list));
-
-        cardForUpdate.setIdBoard(board.getId());
+        list = createList(list);
         cardForUpdate.setIdList(list.getId());
-        cardForUpdate = createCard(requestBuilder().setMethod(Method.POST)
-                                                   .buildRequest()
-                                                   .sendCreateRequest(cardForUpdate));
-
-        cardForDelete.setIdBoard(board.getId());
+        cardForUpdate = createCard(cardForUpdate);
         cardForDelete.setIdList(list.getId());
-        cardForDelete = createCard(requestBuilder().setMethod(Method.POST)
-                                                   .buildRequest()
-                                                   .sendCreateRequest(cardForUpdate));
+        cardForDelete = createCard(cardForDelete);
     }
 
     @AfterClass
