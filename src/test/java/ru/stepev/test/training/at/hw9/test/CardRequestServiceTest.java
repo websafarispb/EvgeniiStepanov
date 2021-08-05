@@ -28,8 +28,6 @@ public class CardRequestServiceTest extends BaseTest {
 
         Card actualCard = getCard(
             requestBuilder()
-                .setKey(pageProperty.getProperty("trello.key"))
-                .setToken(pageProperty.getProperty("trello.token"))
                 .setMethod(Method.POST)
                 .setName(card.getName())
                 .setIdList(list.getId())
@@ -47,8 +45,6 @@ public class CardRequestServiceTest extends BaseTest {
     public void givenCardId_whenGetCardById_thenTheGottenCardHaveCorrectFields() {
         Card actualCard = getCard(
             requestBuilder()
-                .setKey(pageProperty.getProperty("trello.key"))
-                .setToken(pageProperty.getProperty("trello.token"))
                 .setMethod(Method.GET)
                 .setId(cardForUpdate.getId())
                 .buildRequest().sendRequest());
@@ -65,8 +61,6 @@ public class CardRequestServiceTest extends BaseTest {
     public void givenIncorrectCardId_whenGetCardById_thenGetResponseInvalidId() {
         requestBuilder()
             .setId("60ef45aae73ceb18f1c80484WRONG")
-            .setKey(pageProperty.getProperty("trello.key"))
-            .setToken(pageProperty.getProperty("trello.token"))
             .setMethod(Method.GET)
             .buildRequest()
             .sendRequest()
@@ -80,8 +74,6 @@ public class CardRequestServiceTest extends BaseTest {
     public void givenIncorrectCardId_whenDeleteCardById_thenGetResponseInvalidId() {
         requestBuilder()
             .setId("60ef45aae73ceb18f1c80484WRONG")
-            .setKey(pageProperty.getProperty("trello.key"))
-            .setToken(pageProperty.getProperty("trello.token"))
             .setMethod(Method.DELETE)
             .buildRequest()
             .sendRequest()
@@ -95,8 +87,6 @@ public class CardRequestServiceTest extends BaseTest {
     public void givenCardId_whenDeleteCardById_thenCardDeleteAndGetGoodResponse() {
         requestBuilder()
             .setId(cardForDelete.getId())
-            .setKey(pageProperty.getProperty("trello.key"))
-            .setToken(pageProperty.getProperty("trello.token"))
             .setMethod(Method.DELETE)
             .buildRequest()
             .sendRequest()
@@ -110,8 +100,6 @@ public class CardRequestServiceTest extends BaseTest {
 
         requestBuilder()
             .setId(cardForDelete.getId())
-            .setKey(pageProperty.getProperty("trello.key"))
-            .setToken(pageProperty.getProperty("trello.token"))
             .setName("This name was updated by rest assure")
             .setMethod(Method.PUT)
             .buildRequest()

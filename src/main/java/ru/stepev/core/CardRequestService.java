@@ -20,6 +20,8 @@ public class CardRequestService extends TrelloRequestService {
     public CardRequestService(Map<String, String> parameters, Method method) {
         this.parameters = parameters;
         this.requestMethod = method;
+        parameters.putIfAbsent("token", credentials.get("token"));
+        parameters.putIfAbsent("key", credentials.get("key"));
     }
 
     public static ApiRequestBuilder requestBuilder() {
@@ -97,8 +99,6 @@ public class CardRequestService extends TrelloRequestService {
 
     public static Card createCard(Card card) {
         return getCard(CardRequestService.requestBuilder()
-                                         .setKey(pageProperty.getProperty("trello.key"))
-                                         .setToken(pageProperty.getProperty("trello.token"))
                                          .setName(card.getName())
                                          .setMethod(Method.POST)
                                          .setIdList(card.getIdList())

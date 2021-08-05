@@ -20,8 +20,6 @@ public class BoardRequestServiceTest extends BaseTest {
     @Test
     public void givenBoard_whenCreateBoard_thenBoardCreateAndGetGoodResponse() {
         Board actualBoard = getBoard(requestBuilder()
-            .setKey(pageProperty.getProperty("trello.key"))
-            .setToken(pageProperty.getProperty("trello.token"))
             .setName(boardForCreate.getName())
             .setPrefsBackground("red")
             .setMethod(Method.POST)
@@ -38,8 +36,6 @@ public class BoardRequestServiceTest extends BaseTest {
     @Test
     public void givenBoardId_whenBoardDelete_thenBoardDeleteAndGetGoodResponse() {
         requestBuilder()
-            .setKey(pageProperty.getProperty("trello.key"))
-            .setToken(pageProperty.getProperty("trello.token"))
             .setId(boardForDelete.getId())
             .setPrefsBackground("red")
             .setMethod(Method.DELETE)
@@ -53,8 +49,6 @@ public class BoardRequestServiceTest extends BaseTest {
     @Test
     public void givenBoardId_whenGetBoard_thenBoardGetGoodResponse() {
         Board actualBoard = getBoard(requestBuilder()
-            .setKey(pageProperty.getProperty("trello.key"))
-            .setToken(pageProperty.getProperty("trello.token"))
             .setId("60ef45290539a902b11ee0bb")
             .setMethod(Method.GET)
             .buildRequest()

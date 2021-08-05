@@ -19,6 +19,8 @@ public class BoardRequestService extends TrelloRequestService {
     public BoardRequestService(Map<String, String> parameters, Method method) {
         this.parameters = parameters;
         this.requestMethod = method;
+        parameters.putIfAbsent("token", credentials.get("token"));
+        parameters.putIfAbsent("key", credentials.get("key"));
     }
 
     public static ApiRequestBuilder requestBuilder() {
@@ -91,8 +93,6 @@ public class BoardRequestService extends TrelloRequestService {
 
     public static Board createBoard(Board board) {
         return getBoard(requestBuilder()
-            .setKey(pageProperty.getProperty("trello.key"))
-            .setToken(pageProperty.getProperty("trello.token"))
             .setName(board.getName())
             .setMethod(Method.POST)
             .buildRequest()
@@ -101,8 +101,6 @@ public class BoardRequestService extends TrelloRequestService {
 
     public static void delete(Board board) {
         requestBuilder()
-            .setKey(pageProperty.getProperty("trello.key"))
-            .setToken(pageProperty.getProperty("trello.token"))
             .setMethod(Method.DELETE)
             .setId(board.getId())
             .buildRequest()

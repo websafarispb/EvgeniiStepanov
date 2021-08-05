@@ -1,9 +1,7 @@
 package ru.stepev.core;
 
 import static io.restassured.RestAssured.given;
-import static ru.stepev.utils.PropertyReader.pageProperty;
 
-import beans.Card;
 import beans.List;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -12,7 +10,6 @@ import io.restassured.http.Method;
 import io.restassured.response.Response;
 import java.util.HashMap;
 import java.util.Map;
-import ru.stepev.core.CardRequestService.ApiRequestBuilder;
 
 public class ListRequestService extends TrelloRequestService {
 
@@ -22,6 +19,8 @@ public class ListRequestService extends TrelloRequestService {
     public ListRequestService(Map<String, String> parameters, Method method) {
         this.parameters = parameters;
         this.requestMethod = method;
+        parameters.putIfAbsent("token", credentials.get("token"));
+        parameters.putIfAbsent("key", credentials.get("key"));
     }
 
     public static ApiRequestBuilder requestBuilder() {
@@ -102,8 +101,6 @@ public class ListRequestService extends TrelloRequestService {
 
     public static List createList(List list) {
         return getList(ListRequestService.requestBuilder()
-                                                 .setKey(pageProperty.getProperty("trello.key"))
-                                                 .setToken(pageProperty.getProperty("trello.token"))
                                                  .setName(list.getName())
                                                  .setMethod(Method.POST)
                                                  .setIdBoard(list.getIdBoard())
